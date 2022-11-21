@@ -16,13 +16,12 @@ from service_creator import Create_Service2
 from link_generator import sharer
 from sheet_writer import writer
 
-#--------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------------------
 CLIENT_SECRET_FILE = 'client-secret.json'
 SERVICE_ACCOUNT_FILE = 'service-account.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/drive']
-#--------------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------------------------------------
 #Google spreadsheet to write data on, note that the sheet must have write access to the service account.
 SPREADSHEET_ID= '1YhRNHUeIIrYKljx2774XFluy54VorBIcZnfbmXyVIm4'
@@ -32,24 +31,26 @@ folder_id = '1TZJzb9h8v5LhQB7WG9B2Im5toY1uQiHi'             #change this to choo
 #----------------------------------------------------------------------------------------------------------------------------------
 
 def uploader(service):
-    #Upload code begins here.
+
+    #destination folder information
     folder=service.files().get(fileId=folder_id, fields="name", supportsAllDrives=True).execute()
     folder_name=folder.get('name')
     print(f"Folder name : {folder_name}")
 
-    # Upload the file
+    # defining the file to upload
     file = sys.argv[1]
     file_metadata = {
         'name': file,
         'parents' : [folder_id]                             #This is the folder_id where the files will be uploaded
     }
-
     media_content = MediaFileUpload(file, mimetype=MIME_TYPE)
 
     #creating a query to see if the file is already uploaded
     query = (f"parents ={folder_id}") and (f"name contains '{file}'") #querying for a duplicate file
 
+    #applying the query to search for files in the shared drive
     response = service.files().list(q=query,includeItemsFromAllDrives=True, corpora='drive',driveId=driveID, supportsAllDrives=True).execute()
+
     files = response.get('files')
 
     #creating a dataframe out of the response received from query
@@ -99,3 +100,4 @@ if __name__ == '__main__':
     if ID:
         link = sharer(ID)
         writer(SPREADSHEET_ID, sys.argv[1], ID, link)
+    print("THE END...")
