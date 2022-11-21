@@ -35,7 +35,7 @@ def uploader(service):
     #destination folder information
     folder=service.files().get(fileId=folder_id, fields="name", supportsAllDrives=True).execute()
     folder_name=folder.get('name')
-    print(f"Folder name : {folder_name}")
+    print(f"\nDestination folder : \"{folder_name}\"")
 
     # defining the file to upload
     file = sys.argv[1]
@@ -43,11 +43,12 @@ def uploader(service):
         'name': file,
         'parents' : [folder_id]                             #This is the folder_id where the files will be uploaded
     }
-    media_content = MediaFileUpload(file, mimetype=MIME_TYPE)
+    media_content = MediaFileUpload(file)#, mimetype=MIME_TYPE)
 
     #creating a query to see if the file is already uploaded
     query = (f"parents ={folder_id}") and (f"name contains '{file}'") #querying for a duplicate file
 
+    print("\nScanning the destination folder for duplicate files...")
     #applying the query to search for files in the shared drive
     response = service.files().list(q=query,includeItemsFromAllDrives=True, corpora='drive',driveId=driveID, supportsAllDrives=True).execute()
 
@@ -58,6 +59,7 @@ def uploader(service):
     #print(df)
 
     if df.empty:
+        print("\nUploading the file...")
         file = service.files().create(
             body=file_metadata,
             media_body=media_content,
@@ -65,16 +67,17 @@ def uploader(service):
         ).execute()
 
         fileName = file.get('name')
-        print(f"\nFile {fileName} upload to drive... Successful!")
+        print(f"\n \"{fileName}\" upload to drive... Successful!")
 
         ID = file.get("id")         #getting the ID of the file
         return ID
     else:
-        print(f"\nFound some duplicates in : \'{folder_name}\' folder.")
+        print(f"\nFound some duplicates in : \"{folder_name}\" folder.")
         print(f"\n{df}")
-        action = 'Y'
-        action = input("\nDo you still want to upload the file? (Y/n)")
-        if action == 'Y':
+
+        action = input("\nDo you still want to upload the file? (y/N)")
+        if action == 'Y'or 'y':
+            print("\nUploading the file...")
             file = service.files().create(
             body=file_metadata,
             media_body=media_content,
@@ -82,7 +85,7 @@ def uploader(service):
             ).execute()
 
             fileName = file.get('name')
-            print(f"File {fileName} upload to drive... Successful!")
+            print(f"\n \"{fileName}\" upload to drive... Successful!")
 
             ID = file.get("id")         #getting the ID of the file
             return ID
