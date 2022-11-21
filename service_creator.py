@@ -2,6 +2,7 @@ import pickle
 import os
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import Flow, InstalledAppFlow
+from google.oauth2 import service_account
 
 #creating service
 def Create_Service(client_secret_file, api_name, api_version, *scopes):
@@ -39,4 +40,21 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
         print('Unable to create service...')
         print(e)
         return None
+
+#create service with a service account file...
+def Create_Service2(key_file_location, api_name, api_version, scopes):
+	""" creates a service object to communicate with Google Drive API via a service account.
+	key_file_location: The path to a valid service account JSON key file.
+
+	Returns the service object
+	"""
+
+	credentials = service_account.Credentials.from_service_account_file(key_file_location)
+
+	scoped_creds = credentials.with_scopes(scopes)
+
+	#Build the service object
+	service = build(api_name, api_version, credentials=scoped_creds)
+
+	return service
 
