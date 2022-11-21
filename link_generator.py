@@ -1,3 +1,11 @@
+"""
+Date: November 21, 2022
+Version: 1.1
+Author: SangaeLama
+Github: https://github.com/SangaeLama/Python-Google-Drive-API/blob/master/link_generator.py
+"""
+
+
 from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 
 from service_creator import Create_Service

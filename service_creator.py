@@ -1,3 +1,10 @@
+"""
+Date: November 21, 2022
+Version: 1.1
+Author: SangaeLama
+Github: https://github.com/SangaeLama/Python-Google-Drive-API/blob/master/service_creator.py
+"""
+
 import pickle
 import os
 from googleapiclient.discovery import build

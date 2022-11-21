@@ -1,3 +1,10 @@
+"""
+Date: November 21, 2022
+Version: 1.1
+Author: SangaeLama
+Github: https://github.com/SangaeLama/Python-Google-Drive-API/blob/master/sheet_writer.py
+"""
+
 import sys
 from googleapiclient.discovery import build         #for building service
 from google.oauth2 import service_account           #to work with service service_account

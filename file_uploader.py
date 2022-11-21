@@ -1,3 +1,9 @@
+"""
+Date: November 21, 2022
+Version: 2.3
+Author: SangaeLama
+Github: https://github.com/SangaeLama/Python-Google-Drive-API/blob/master/file_uploader.py
+"""
 import sys
 import pandas as pd
 
