@@ -16,27 +16,26 @@ SERVICE_ACCOUNT_FILE = 'service-account.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/drive']
-
-SPREADSHEET_ID= '1YhRNHUeIIrYKljx2774XFluy54VorBIcZnfbmXyVIm4'
-MIME_TYPE = 'image/png'
 #--------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------------------
+#Google spreadsheet to write data on, note that the sheet must have write access to the service account.
+SPREADSHEET_ID= '1YhRNHUeIIrYKljx2774XFluy54VorBIcZnfbmXyVIm4'
+MIME_TYPE = 'image/png'                                     #change this according to the type of file being uploaded.
+driveID = '0AGRZ_Z8RC-_fUk9PVA'                             #drive ID of the shared drive.
+folder_id = '1TZJzb9h8v5LhQB7WG9B2Im5toY1uQiHi'             #change this to choose the directory to upload the files to.
+#----------------------------------------------------------------------------------------------------------------------------------
 
 def uploader(service):
     #Upload code begins here.
-    driveID = '0AGRZ_Z8RC-_fUk9PVA'
-    file = sys.argv[1]
-    folder_id = '1TZJzb9h8v5LhQB7WG9B2Im5toY1uQiHi'             #This is the folder_id where the files will be uploadeds
-
-    #getting the folder name from the folder_id
     folder=service.files().get(fileId=folder_id, fields="name", supportsAllDrives=True).execute()
     folder_name=folder.get('name')
     print(f"Folder name : {folder_name}")
 
     # Upload the file
+    file = sys.argv[1]
     file_metadata = {
         'name': file,
-        #'parents': ['1PnEfdMLPxLynwZscq3rtmwePWHm23rnM']
-        'parents' : [folder_id]        #change this to choose the directory to upload the files to.
+        'parents' : [folder_id]                             #This is the folder_id where the files will be uploaded
     }
 
     media_content = MediaFileUpload(file, mimetype=MIME_TYPE)
