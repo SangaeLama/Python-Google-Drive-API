@@ -100,4 +100,4 @@ if __name__ == '__main__':
     if ID:
         link = sharer(ID)
         writer(SPREADSHEET_ID, sys.argv[1], ID, link)
-    print("THE END...")
+    print("\n\t\t...THE END...")
