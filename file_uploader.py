@@ -6,11 +6,13 @@ from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from google.auth.transport.requests import Request
 
 from service_creator import Create_Service
+from service_creator import Create_Service2
 from link_generator import sharer
 from sheet_writer import writer
 
 #--------------------------------------------------------------------------------------------
 CLIENT_SECRET_FILE = 'client-secret.json'
+SERVICE_ACCOUNT_FILE = 'service-account.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/drive']
@@ -80,8 +82,11 @@ def uploader(service):
 
 
 if __name__ == '__main__':
+    #creating a service from the client-secret.json file
+    #service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    #creating a service from the service-account.json file
+    service = Create_Service2(SERVICE_ACCOUNT_FILE, API_NAME, API_VERSION, SCOPES)
     ID=uploader(service)
     if ID:
         link = sharer(ID)
