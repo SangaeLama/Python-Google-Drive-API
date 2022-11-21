@@ -16,6 +16,9 @@ SERVICE_ACCOUNT_FILE = 'service-account.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/drive']
+
+SPREADSHEET_ID= '1YhRNHUeIIrYKljx2774XFluy54VorBIcZnfbmXyVIm4'
+MIME_TYPE = 'image/png'
 #--------------------------------------------------------------------------------------------
 
 def uploader(service):
@@ -36,7 +39,7 @@ def uploader(service):
         'parents' : [folder_id]        #change this to choose the directory to upload the files to.
     }
 
-    media_content = MediaFileUpload(file, mimetype='image/png')
+    media_content = MediaFileUpload(file, mimetype=MIME_TYPE)
 
     #creating a query to see if the file is already uploaded
     query = (f"parents ={folder_id}") and (f"name contains '{file}'") #querying for a duplicate file
@@ -73,7 +76,7 @@ def uploader(service):
             ).execute()
 
             fileName = file.get('name')
-            print("File "+fileName+ " upload to drive... Successful!")
+            print(f"File {fileName} upload to drive... Successful!")
 
             ID = file.get("id")         #getting the ID of the file
             return ID
@@ -90,5 +93,4 @@ if __name__ == '__main__':
     ID=uploader(service)
     if ID:
         link = sharer(ID)
-        SPREADSHEET_ID= '1YhRNHUeIIrYKljx2774XFluy54VorBIcZnfbmXyVIm4'
         writer(SPREADSHEET_ID, sys.argv[1], ID, link)
