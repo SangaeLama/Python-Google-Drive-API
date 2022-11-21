@@ -43,7 +43,7 @@ On Google Cloud Console:
 
 At Client Side:
     1. Install python libraries at client side.
-        ```bash
+        ```
         pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas pickle
         ```
     2. Edit the python files to specify where the file should be uploaded by editing the folder_id, and driveID if working with Shared Drives.
