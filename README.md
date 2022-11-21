@@ -34,7 +34,7 @@
  |___/ |_||_| |___| |___|   |_|   |___/
 
 
-                                                                                    version 1.0
+                                                                                    version 1.1
 Drive API V3 and Sheets API V4
 
 On Google Cloud Console:
@@ -52,5 +52,6 @@ Usage:
         where x.png is the file to be uploaded.
 
 
-
+V1.1:
+    Added support of service accounts instead of just Oauth2.0 tokens for requesting drive API.
 
