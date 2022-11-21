@@ -9,15 +9,18 @@ Github: https://github.com/SangaeLama/Python-Google-Drive-API/blob/master/link_g
 from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 
 from service_creator import Create_Service
+from service_creator import Create_Service
 
 #--------------------------------------------------------------------------------------------
 CLIENT_SECRET_FILE = 'client-secret.json'
+SERVICE_ACCOUNT_FILE = 'service-account.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/drive']
 #--------------------------------------------------------------------------------------------
 
-service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+#service = Create_Service2(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+service = Create_Service2(SERVICE_ACCOUNT_FILE, API_NAME, API_VERSION, SCOPES)
 
 def sharer(ID):
     #share-link code starts here.
