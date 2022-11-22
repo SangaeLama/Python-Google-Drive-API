@@ -76,7 +76,7 @@ def uploader(service):
         print(f"\n{df}")
 
         action = input("\nDo you still want to upload the file? (y/N)")
-        if action == 'Y'or 'y':
+        if action == 'y':
             print("\nUploading the file...")
             file = service.files().create(
             body=file_metadata,
