@@ -1,3 +1,4 @@
+# Python Google Drive API
 ```
     _     ___   ___
    /_\   | _ \ |_ _|
@@ -36,7 +37,30 @@
 
 ```
                                                                                     version 1.1
-Drive API V3 and Sheets API V4
+
+Usage:
+    1. Run the following command:
+        ```bash
+        python3 file_uploader.py x.png
+
+        where x.png is the file to be uploaded.
+
+
+V1.1:
+    Added support of service accounts instead of just Oauth2.0 tokens for requesting drive API.
+
+
+This repository contains Python scripts for interacting with the Google Drive API. The scripts provide functionality to upload files, generate shareable links, list files, and write data to a Google Sheets spreadsheet. The Google Drive API is utilized to perform these tasks.
+
+## Prerequisites
+
+Before using the scripts in this repository, ensure you have the following:
+
+- Python 3.x
+- Required Python packages: `google-auth`, `google-auth-oauthlib`, `google-auth-httplib2`, `google-api-python-client`, `pandas`, `jq` (for certain scripts)
+- Google account with API access enabled
+- Generated client secret JSON or service account JSON credentials
+- Access to a Google Drive folder and Google Sheets spreadsheet for testing
 
 On Google Cloud Console:
     1. Enable the Drive API and Sheets API.
@@ -49,12 +73,14 @@ At Client Side:
         ```
     2. Edit the python files to specify where the file should be uploaded by editing the folder_id, and driveID if working with Shared Drives.
 
+## Scripts
+
+### 1. `file_uploader.py`
+
+This script allows you to upload files to a specific Google Drive folder. It provides options to handle duplicate files and scans the destination folder for duplicates before uploading.
+
 Usage:
-    1. Run the following command:
-        ```$python3 file_uploader.py x.png```
-        where x.png is the file to be uploaded.
+```bash
+python file_uploader.py <file_to_upload>
 
-
-V1.1:
-    Added support of service accounts instead of just Oauth2.0 tokens for requesting drive API.
 
